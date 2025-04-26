@@ -8,6 +8,14 @@ const Header = () => {
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
+  const scrollToSection = (sectionId: string) => {
+    setIsMenuOpen(false);
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <header className="fixed w-full bg-background/80 backdrop-blur-md z-50 border-b border-border">
       <div className="container mx-auto px-4">
@@ -19,11 +27,13 @@ const Header = () => {
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-muted-foreground hover:text-foreground transition-colors">Features</a>
-            <a href="#portfolio" className="text-muted-foreground hover:text-foreground transition-colors">Portfolio</a>
-            <a href="#testimonials" className="text-muted-foreground hover:text-foreground transition-colors">Testimonials</a>
-            <a href="#contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a>
-            <Button className="bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 text-white hover:opacity-90 transition-opacity">
+            <a onClick={() => scrollToSection('features')} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Features</a>
+            <a onClick={() => scrollToSection('portfolio')} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Portfolio</a>
+            <a onClick={() => scrollToSection('testimonials')} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Testimonials</a>
+            <a onClick={() => scrollToSection('contact')} className="text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Contact</a>
+            <Button 
+              onClick={() => scrollToSection('contact')}
+              className="bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 text-white hover:opacity-90 transition-opacity">
               Get Started
             </Button>
           </nav>
@@ -39,11 +49,13 @@ const Header = () => {
 
         {isMenuOpen && (
           <nav className="md:hidden py-4 space-y-4 animate-fade-in">
-            <a href="#features" className="block text-muted-foreground hover:text-foreground transition-colors">Features</a>
-            <a href="#portfolio" className="block text-muted-foreground hover:text-foreground transition-colors">Portfolio</a>
-            <a href="#testimonials" className="block text-muted-foreground hover:text-foreground transition-colors">Testimonials</a>
-            <a href="#contact" className="block text-muted-foreground hover:text-foreground transition-colors">Contact</a>
-            <Button className="w-full bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 text-white hover:opacity-90 transition-opacity">
+            <a onClick={() => scrollToSection('features')} className="block text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Features</a>
+            <a onClick={() => scrollToSection('portfolio')} className="block text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Portfolio</a>
+            <a onClick={() => scrollToSection('testimonials')} className="block text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Testimonials</a>
+            <a onClick={() => scrollToSection('contact')} className="block text-muted-foreground hover:text-foreground transition-colors cursor-pointer">Contact</a>
+            <Button 
+              onClick={() => scrollToSection('contact')}
+              className="w-full bg-gradient-to-r from-purple-400 via-pink-500 to-blue-500 text-white hover:opacity-90 transition-opacity">
               Get Started
             </Button>
           </nav>

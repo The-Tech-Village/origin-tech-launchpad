@@ -1,8 +1,17 @@
 
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { toast } from "@/components/ui/sonner";
 
 const CTA = () => {
+  const handleCTAClick = () => {
+    toast.success("Your project request has been received!", {
+      description: "We'll contact you shortly to discuss your project.",
+      duration: 5000,
+    });
+  };
+
   return (
     <section id="contact" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -13,7 +22,9 @@ const CTA = () => {
           <p className="text-xl text-muted-foreground mb-8">
             Let's discuss your project and create something amazing together.
           </p>
-          <Button className="bg-gradient-to-r from-blue-400 to-purple-400 hover:opacity-90 transition-opacity text-lg px-8 py-6 group">
+          <Button 
+            onClick={handleCTAClick}
+            className="bg-gradient-to-r from-blue-400 to-purple-400 hover:opacity-90 transition-opacity text-lg px-8 py-6 group">
             Get Started Now
             <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
           </Button>
