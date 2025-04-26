@@ -19,23 +19,23 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+    <section id="testimonials" className="py-20 bg-secondary">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">
             What Our Clients Say
           </h2>
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-muted-foreground">
             Don't just take our word for it
           </p>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white p-8 rounded-xl shadow-lg">
-              <p className="text-gray-600 mb-6 italic">"{testimonial.quote}"</p>
+            <div key={index} className="bg-card p-8 rounded-xl border border-border hover:border-primary/50 transition-colors">
+              <p className="text-muted-foreground mb-6 italic">"{testimonial.quote}"</p>
               <div>
-                <p className="font-semibold">{testimonial.author}</p>
-                <p className="text-gray-500">{testimonial.role}</p>
+                <p className="font-semibold text-foreground">{testimonial.author}</p>
+                <p className="text-muted-foreground">{testimonial.role}</p>
               </div>
             </div>
           ))}

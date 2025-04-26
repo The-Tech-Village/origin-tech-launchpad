@@ -46,7 +46,7 @@ const Portfolio = () => {
                 className="w-full h-48 object-cover"
               />
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-2 text-card-foreground">{project.title}</h3>
+                <h3 className="text-xl font-semibold mb-2 text-foreground">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, i) => (
@@ -58,7 +58,7 @@ const Portfolio = () => {
                     </span>
                   ))}
                 </div>
-                <Button variant="outline" className="w-full group">
+                <Button variant="outline" className="w-full group border-primary/50 hover:bg-primary/10">
                   View Details
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
                 </Button>
