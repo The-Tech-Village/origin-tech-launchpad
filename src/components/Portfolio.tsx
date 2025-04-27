@@ -26,19 +26,19 @@ const projects = [
 
 const Portfolio = () => {
   return (
-    <section id="portfolio" className="py-20 bg-background">
+    <section id="portfolio" className="py-20 bg-background/50 backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">Our Portfolio</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">Our Excellence Portfolio</h2>
           <p className="text-xl text-muted-foreground">
-            Explore some of our recent successful projects
+            Discover how we've helped businesses achieve digital transformation
           </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project, index) => (
             <Card 
               key={index} 
-              className="overflow-hidden hover:scale-105 transition-transform duration-300 bg-card border border-border"
+              className="overflow-hidden hover:scale-105 transition-transform duration-300 bg-card/50 backdrop-blur-sm border-orange-500/10 hover:border-orange-500/30"
             >
               <img
                 src={project.image}
@@ -52,13 +52,13 @@ const Portfolio = () => {
                   {project.tech.map((tech, i) => (
                     <span 
                       key={i}
-                      className="px-3 py-1 text-sm rounded-full bg-primary/10 text-primary"
+                      className="px-3 py-1 text-sm rounded-full bg-orange-500/10 text-orange-400"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-                <Button variant="outline" className="w-full group border-primary/50 hover:bg-primary/10">
+                <Button variant="outline" className="w-full group border-orange-500/30 hover:bg-orange-500/10">
                   View Details
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
                 </Button>
