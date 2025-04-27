@@ -1,23 +1,19 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import ParticlesBackground from "./ParticlesBackground";
 import HeroIllustration from "./HeroIllustration";
-import { toast } from "sonner";
+import ProjectInquiryForm from "./ProjectInquiryForm";
 
 const Hero = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const handleLearnMoreClick = () => {
     const featuresSection = document.getElementById('features');
     if (featuresSection) {
       featuresSection.scrollIntoView({ behavior: 'smooth' });
     }
-  };
-
-  const handleStartProjectClick = () => {
-    toast.success("Your project request has been received!", {
-      description: "We'll contact you shortly to discuss your project needs.",
-      duration: 5000,
-    });
   };
 
   return (
@@ -37,7 +33,7 @@ const Hero = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 animate-fade-in [animation-delay:400ms]">
                 <Button 
-                  onClick={handleStartProjectClick}
+                  onClick={() => setIsFormOpen(true)}
                   className="bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 hover:opacity-90 transition-opacity text-lg px-8 py-6 group shadow-lg shadow-orange-500/20 hover:scale-105 transform transition-all">
                   Start Your Project
                   <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-2 transition-transform" />
@@ -59,6 +55,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      <ProjectInquiryForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </div>
   );
 };
