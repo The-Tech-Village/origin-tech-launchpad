@@ -27,7 +27,7 @@ const ProjectInquiryForm = ({ open, onOpenChange }: ProjectInquiryFormProps) => 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
     try {
-      const response = await fetch('https://formspree.io/f/contact.ttvillage@gmail.com', {
+      const response = await fetch('https://formspree.io/f/meogoprr', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
