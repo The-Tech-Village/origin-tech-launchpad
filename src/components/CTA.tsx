@@ -1,14 +1,14 @@
-
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
+import ProjectInquiryForm from "./ProjectInquiryForm";
 
 const CTA = () => {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
   const handleCTAClick = () => {
-    toast.success("Your project request has been received!", {
-      description: "We'll contact you shortly to discuss your project.",
-      duration: 5000,
-    });
+    setIsFormOpen(true);
   };
 
   return (
@@ -29,6 +29,7 @@ const CTA = () => {
           </Button>
         </div>
       </div>
+      <ProjectInquiryForm open={isFormOpen} onOpenChange={setIsFormOpen} />
     </section>
   );
 };
