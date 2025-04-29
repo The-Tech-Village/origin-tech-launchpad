@@ -1,5 +1,6 @@
 
 import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -15,19 +16,19 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold text-foreground mb-4">Services</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Mobile Apps</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Web Development</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">UI/UX Design</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Consulting</a></li>
+              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Mobile Apps</Link></li>
+              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Web Development</Link></li>
+              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">UI/UX Design</Link></li>
+              <li><Link to="/services" className="text-muted-foreground hover:text-primary transition-colors">Consulting</Link></li>
             </ul>
           </div>
           <div>
             <h4 className="text-lg font-semibold text-foreground mb-4">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">About Us</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Careers</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Blog</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-primary transition-colors">Contact</a></li>
+              <li><Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About Us</Link></li>
+              <li><Link to="/careers" className="text-muted-foreground hover:text-primary transition-colors">Careers</Link></li>
+              <li><Link to="/blog" className="text-muted-foreground hover:text-primary transition-colors">Blog</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link></li>
             </ul>
           </div>
           <div>

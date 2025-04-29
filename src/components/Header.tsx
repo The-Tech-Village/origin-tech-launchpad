@@ -2,17 +2,25 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const scrollToSection = (sectionId: string) => {
     setIsMenuOpen(false);
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
+    // If we're on the home page, scroll to the section
+    if (window.location.pathname === '/') {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      // If we're on another page, navigate to home and then scroll to the section
+      navigate('/', { state: { scrollTo: sectionId } });
     }
   };
 
@@ -21,16 +29,17 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="/" className="text-2xl font-bold text-gradient">
+            <Link to="/" className="text-2xl font-bold text-gradient">
               Origin Tech
-            </a>
+            </Link>
           </div>
 
           <nav className="hidden md:flex items-center space-x-8">
-            <a onClick={() => scrollToSection('features')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Features</a>
+            <Link to="/services" className="text-muted-foreground hover:text-orange-400 transition-colors">Services</Link>
             <a onClick={() => scrollToSection('portfolio')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
-            <a onClick={() => scrollToSection('testimonials')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Testimonials</a>
-            <a onClick={() => scrollToSection('contact')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Contact</a>
+            <Link to="/about" className="text-muted-foreground hover:text-orange-400 transition-colors">About</Link>
+            <Link to="/blog" className="text-muted-foreground hover:text-orange-400 transition-colors">Blog</Link>
+            <Link to="/contact" className="text-muted-foreground hover:text-orange-400 transition-colors">Contact</Link>
             <Button 
               onClick={() => scrollToSection('contact')}
               className="bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 text-white hover:opacity-90 transition-opacity shadow-lg shadow-orange-500/20">
@@ -49,10 +58,11 @@ const Header = () => {
 
         {isMenuOpen && (
           <nav className="md:hidden py-4 space-y-4 animate-fade-in">
-            <a onClick={() => scrollToSection('features')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Features</a>
+            <Link to="/services" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</Link>
             <a onClick={() => scrollToSection('portfolio')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
-            <a onClick={() => scrollToSection('testimonials')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Testimonials</a>
-            <a onClick={() => scrollToSection('contact')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Contact</a>
+            <Link to="/about" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
+            <Link to="/blog" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
+            <Link to="/contact" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <Button 
               onClick={() => scrollToSection('contact')}
               className="w-full bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 text-white hover:opacity-90 transition-opacity shadow-lg shadow-orange-500/20">

@@ -2,21 +2,25 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { Link } from "react-router-dom";
 
 const projects = [
   {
+    id: "e-commerce-platform",
     title: "E-Commerce Platform",
     description: "A full-featured online shopping platform with real-time inventory management.",
     image: "https://placehold.co/600x400/1a1f2c/ffffff?text=E-Commerce",
     tech: ["React", "Node.js", "MongoDB"],
   },
   {
+    id: "healthcare-app",
     title: "Healthcare App",
     description: "Patient management system with integrated telemedicine features.",
     image: "https://placehold.co/600x400/1a1f2c/ffffff?text=Healthcare",
     tech: ["React Native", "Express", "PostgreSQL"],
   },
   {
+    id: "financial-dashboard",
     title: "Financial Dashboard",
     description: "Real-time financial data visualization and analysis platform.",
     image: "https://placehold.co/600x400/1a1f2c/ffffff?text=Finance",
@@ -58,9 +62,15 @@ const Portfolio = () => {
                     </span>
                   ))}
                 </div>
-                <Button variant="outline" className="w-full group border-orange-500/30 hover:bg-orange-500/10">
-                  View Details
-                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                <Button 
+                  variant="outline" 
+                  className="w-full group border-orange-500/30 hover:bg-orange-500/10"
+                  asChild
+                >
+                  <Link to={`/project/${project.id}`}>
+                    View Details
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-2 transition-transform" />
+                  </Link>
                 </Button>
               </CardContent>
             </Card>
