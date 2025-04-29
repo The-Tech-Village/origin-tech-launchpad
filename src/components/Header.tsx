@@ -38,7 +38,7 @@ const Header = () => {
             <Link to="/services" className="text-muted-foreground hover:text-orange-400 transition-colors">Services</Link>
             <a onClick={() => scrollToSection('portfolio')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
             <Link to="/about" className="text-muted-foreground hover:text-orange-400 transition-colors">About</Link>
-            <Link to="/blog" className="text-muted-foreground hover:text-orange-400 transition-colors">Blog</Link>
+            <Link to="/careers" className="text-muted-foreground hover:text-orange-400 transition-colors">Careers</Link>
             <Link to="/contact" className="text-muted-foreground hover:text-orange-400 transition-colors">Contact</Link>
             <Button 
               onClick={() => scrollToSection('contact')}
@@ -61,7 +61,7 @@ const Header = () => {
             <Link to="/services" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</Link>
             <a onClick={() => scrollToSection('portfolio')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
             <Link to="/about" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
-            <Link to="/blog" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Blog</Link>
+            <Link to="/careers" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Careers</Link>
             <Link to="/contact" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
             <Button 
               onClick={() => scrollToSection('contact')}
