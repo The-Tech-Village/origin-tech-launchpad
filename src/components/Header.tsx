@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header className="fixed w-full bg-background/80 backdrop-blur-md z-50 border-b border-orange-500/10">
+    <header className="fixed w-full bg-background/80 backdrop-blur-md z-50 border-b border-orange-500/10 dark:border-orange-500/20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -40,6 +41,7 @@ const Header = () => {
             <Link to="/about" className="text-muted-foreground hover:text-orange-400 transition-colors">About</Link>
             <Link to="/careers" className="text-muted-foreground hover:text-orange-400 transition-colors">Careers</Link>
             <Link to="/contact" className="text-muted-foreground hover:text-orange-400 transition-colors">Contact</Link>
+            <ThemeToggle />
             <Button 
               onClick={() => scrollToSection('contact')}
               className="bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 text-white hover:opacity-90 transition-opacity shadow-lg shadow-orange-500/20">
@@ -47,13 +49,16 @@ const Header = () => {
             </Button>
           </nav>
 
-          <button className="md:hidden" onClick={toggleMenu}>
-            {isMenuOpen ? (
-              <X className="h-6 w-6 text-foreground" />
-            ) : (
-              <Menu className="h-6 w-6 text-foreground" />
-            )}
-          </button>
+          <div className="md:hidden flex items-center space-x-2">
+            <ThemeToggle />
+            <button onClick={toggleMenu}>
+              {isMenuOpen ? (
+                <X className="h-6 w-6 text-foreground" />
+              ) : (
+                <Menu className="h-6 w-6 text-foreground" />
+              )}
+            </button>
+          </div>
         </div>
 
         {isMenuOpen && (
