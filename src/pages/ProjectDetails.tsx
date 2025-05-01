@@ -5,6 +5,7 @@ import { ArrowLeft, Play, Pause } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { useEffect, useState, useRef } from "react";
+import ProjectInquiryForm from "@/components/ProjectInquiryForm";
 
 // Define the project type
 interface Project {
@@ -92,6 +93,7 @@ const ProjectDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<Project | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [inquiryOpen, setInquiryOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
@@ -111,6 +113,10 @@ const ProjectDetails = () => {
       videoRef.current.play();
     }
     setIsPlaying(!isPlaying);
+  };
+
+  const handleStartProject = () => {
+    setInquiryOpen(true);
   };
 
   if (!project) {
@@ -267,7 +273,7 @@ const ProjectDetails = () => {
                 <p className="text-muted-foreground mb-6">Let us help you turn your vision into reality. Our team of experts is ready to discuss your needs.</p>
                 <Button 
                   className="bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 hover:opacity-90 transition-opacity text-lg px-8 py-6 shadow-lg shadow-orange-500/20 rounded-xl"
-                  onClick={() => scrollToSection('contact')}
+                  onClick={handleStartProject}
                 >
                   Start a Similar Project
                 </Button>
@@ -277,6 +283,12 @@ const ProjectDetails = () => {
         </div>
       </main>
       <Footer />
+      
+      {/* Project Inquiry Form */}
+      <ProjectInquiryForm 
+        open={inquiryOpen} 
+        onOpenChange={setInquiryOpen} 
+      />
     </div>
   );
 };
