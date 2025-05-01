@@ -10,6 +10,7 @@ import Services from "./pages/Services";
 import AboutUs from "./pages/AboutUs";
 import Careers from "./pages/Careers";
 import Contact from "./pages/Contact";
+import Portfolio from "./pages/Portfolio";
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Index />} />
+        <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/project/:id" element={<ProjectDetails />} />
         <Route path="/services" element={<Services />} />
         <Route path="/about" element={<AboutUs />} />

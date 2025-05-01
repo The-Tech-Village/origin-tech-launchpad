@@ -36,7 +36,7 @@ const Header = () => {
 
           <nav className="hidden md:flex items-center space-x-8">
             <Link to="/services" className="text-muted-foreground hover:text-orange-400 transition-colors">Services</Link>
-            <a onClick={() => scrollToSection('portfolio')} className="text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
+            <Link to="/portfolio" className="text-muted-foreground hover:text-orange-400 transition-colors">Portfolio</Link>
             <Link to="/about" className="text-muted-foreground hover:text-orange-400 transition-colors">About</Link>
             <Link to="/careers" className="text-muted-foreground hover:text-orange-400 transition-colors">Careers</Link>
             <Link to="/contact" className="text-muted-foreground hover:text-orange-400 transition-colors">Contact</Link>
@@ -59,7 +59,7 @@ const Header = () => {
         {isMenuOpen && (
           <nav className="md:hidden py-4 space-y-4 animate-fade-in">
             <Link to="/services" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Services</Link>
-            <a onClick={() => scrollToSection('portfolio')} className="block text-muted-foreground hover:text-orange-400 transition-colors cursor-pointer">Portfolio</a>
+            <Link to="/portfolio" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Portfolio</Link>
             <Link to="/about" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>About</Link>
             <Link to="/careers" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Careers</Link>
             <Link to="/contact" className="block text-muted-foreground hover:text-orange-400 transition-colors" onClick={() => setIsMenuOpen(false)}>Contact</Link>
