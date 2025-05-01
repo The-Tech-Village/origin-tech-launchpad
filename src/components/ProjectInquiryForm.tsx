@@ -4,6 +4,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } f
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
 import { Send } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -17,12 +18,25 @@ interface FormData {
   name: string;
   email: string;
   company: string;
+  budget: string;
+  timeline: string;
+  projectType: string;
   projectDescription: string;
 }
 
 const ProjectInquiryForm = ({ open, onOpenChange }: ProjectInquiryFormProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const form = useForm<FormData>();
+  const form = useForm<FormData>({
+    defaultValues: {
+      name: "",
+      email: "",
+      company: "",
+      budget: "",
+      timeline: "",
+      projectType: "",
+      projectDescription: ""
+    }
+  });
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -105,19 +119,65 @@ const ProjectInquiryForm = ({ open, onOpenChange }: ProjectInquiryFormProps) => 
             />
             <FormField
               control={form.control}
+              name="projectType"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Project Type</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Website, Mobile App, E-commerce, etc." required {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="budget"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Estimated Budget (Optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. $5,000-$10,000" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="timeline"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Timeline (Optional)</FormLabel>
+                    <FormControl>
+                      <Input placeholder="e.g. 2-3 months" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+            <FormField
+              control={form.control}
               name="projectDescription"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Project Description</FormLabel>
                   <FormControl>
-                    <Input placeholder="Brief description of your project" required {...field} />
+                    <Textarea 
+                      placeholder="Please describe your project requirements, goals, and any specific features you need."
+                      className="min-h-[120px]"
+                      required 
+                      {...field} 
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
             <Button type="submit" disabled={isSubmitting} className="w-full">
-              {isSubmitting ? "Sending..." : "Submit"}
+              {isSubmitting ? "Sending..." : "Submit Inquiry"}
               <Send className="ml-2" />
             </Button>
           </form>

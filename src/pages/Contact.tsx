@@ -1,12 +1,11 @@
-
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { toast } from "@/components/ui/sonner";
-import { Mail, Phone, MapPin, Clock } from "lucide-react";
+import { toast } from "sonner";
+import { Mail, Phone, MapPin, Clock, Send } from "lucide-react";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -22,26 +21,36 @@ const Contact = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      toast.success("Message sent successfully! We'll get back to you soon.");
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: ""
+    try {
+      const response = await fetch('https://formspree.io/f/mjkwybgb', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      
-      // In a real application, you would send this data to your backend
-      console.log("Form submitted:", formData);
-      
-      // Email would be sent to contact.ttvillage@gmail.com in a real implementation
-    }, 1500);
+
+      if (response.ok) {
+        toast.success("Message sent successfully! We'll get back to you soon.");
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: ""
+        });
+      } else {
+        throw new Error('Failed to submit form');
+      }
+    } catch (error) {
+      toast.error("Failed to send message. Please try again later.");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -126,6 +135,7 @@ const Contact = () => {
                     className="w-full bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 hover:opacity-90 transition-opacity text-lg py-6 shadow-lg shadow-orange-500/20"
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
+                    <Send className="ml-2 h-5 w-5" />
                   </Button>
                 </form>
               </div>
