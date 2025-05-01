@@ -1,10 +1,10 @@
 
 import { useParams, Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Play, Pause } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 // Define the project type
 interface Project {
@@ -18,6 +18,7 @@ interface Project {
   challenges?: string[];
   solution?: string;
   results?: string;
+  videoUrl?: string;
 }
 
 // Projects data
@@ -40,7 +41,8 @@ const projectsData: Project[] = [
       "Optimizing for mobile devices"
     ],
     solution: "We implemented a microservices architecture to handle various aspects of the platform separately, allowing for better scalability. The frontend was built with React for a responsive user interface, while the backend used Node.js and MongoDB for efficient data management.",
-    results: "The platform saw a 40% increase in conversion rates and a 25% reduction in cart abandonment compared to the client's previous solution."
+    results: "The platform saw a 40% increase in conversion rates and a 25% reduction in cart abandonment compared to the client's previous solution.",
+    videoUrl: "https://player.vimeo.com/progressive_redirect/playback/275932468/rendition/1080p/file.mp4?loc=external"
   },
   {
     id: "healthcare-app",
@@ -60,7 +62,8 @@ const projectsData: Project[] = [
       "Integrating with existing hospital systems"
     ],
     solution: "We built a cross-platform mobile application using React Native, with a secure Express backend and PostgreSQL database. Special attention was given to encryption and data protection measures to ensure compliance with healthcare regulations.",
-    results: "The app helped reduce administrative overhead by 35% and increased patient satisfaction scores by 28%."
+    results: "The app helped reduce administrative overhead by 35% and increased patient satisfaction scores by 28%.",
+    videoUrl: "https://player.vimeo.com/progressive_redirect/playback/684963490/rendition/720p/file.mp4?loc=external"
   },
   {
     id: "financial-dashboard",
@@ -80,19 +83,35 @@ const projectsData: Project[] = [
       "Ensuring minimal latency for real-time updates"
     ],
     solution: "We utilized React for the frontend with dynamic charting libraries, while Python handled the data processing backend. The entire solution was deployed on AWS for scalability and reliability, with special attention to optimizing data flow for real-time performance.",
-    results: "Users reported making investment decisions 50% faster with the dashboard, and the platform maintained sub-second response times even during peak market activity."
+    results: "Users reported making investment decisions 50% faster with the dashboard, and the platform maintained sub-second response times even during peak market activity.",
+    videoUrl: "https://player.vimeo.com/progressive_redirect/playback/715609207/rendition/720p/file.mp4?loc=external"
   },
 ];
 
 const ProjectDetails = () => {
   const { id } = useParams<{ id: string }>();
   const [project, setProject] = useState<Project | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
   
   useEffect(() => {
     // Find the project that matches the ID in the URL
     const foundProject = projectsData.find(p => p.id === id);
     setProject(foundProject || null);
+    // Reset video state when changing projects
+    setIsPlaying(false);
   }, [id]);
+
+  const handleVideoToggle = () => {
+    if (!videoRef.current) return;
+    
+    if (isPlaying) {
+      videoRef.current.pause();
+    } else {
+      videoRef.current.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   if (!project) {
     return (
@@ -126,20 +145,63 @@ const ProjectDetails = () => {
             </Link>
           </Button>
           
+          {/* Hero Section */}
+          <div className="mb-12">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-gradient">{project.title}</h1>
+            <p className="text-xl text-muted-foreground">{project.description}</p>
+          </div>
+          
+          {/* Video Demo Section */}
+          {project.videoUrl && (
+            <div className="mb-16 rounded-2xl overflow-hidden shadow-xl shadow-orange-500/10 bg-card/50 backdrop-blur-sm border border-orange-500/10">
+              <div className="relative">
+                <video 
+                  ref={videoRef}
+                  src={project.videoUrl} 
+                  className="w-full rounded-t-2xl aspect-video object-cover"
+                  poster={project.image}
+                  onEnded={() => setIsPlaying(false)}
+                />
+                <div 
+                  className="absolute inset-0 bg-black bg-opacity-30 flex items-center justify-center cursor-pointer"
+                  onClick={handleVideoToggle}
+                >
+                  <Button 
+                    className="bg-orange-500 hover:bg-orange-600 text-white w-16 h-16 rounded-full flex items-center justify-center shadow-lg group transition-all duration-300 hover:scale-110"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleVideoToggle();
+                    }}
+                  >
+                    {isPlaying ? (
+                      <Pause className="h-8 w-8" />
+                    ) : (
+                      <Play className="h-8 w-8 ml-1" />
+                    )}
+                  </Button>
+                </div>
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-2">Project Demo</h3>
+                <p className="text-muted-foreground">Watch how {project.title} works in action. This demo showcases the key features and user experience.</p>
+              </div>
+            </div>
+          )}
+          
           <div className="grid md:grid-cols-3 gap-8">
             <div className="md:col-span-1">
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="w-full rounded-lg shadow-lg mb-6"
+                className="w-full rounded-lg shadow-lg mb-6 border border-orange-500/10"
               />
-              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-lg border border-orange-500/10">
+              <div className="bg-card/50 backdrop-blur-sm p-6 rounded-lg border border-orange-500/10 shadow-lg shadow-orange-500/5">
                 <h3 className="text-lg font-semibold mb-4">Technologies Used</h3>
                 <div className="flex flex-wrap gap-2">
                   {project.tech.map((tech, i) => (
                     <span 
                       key={i}
-                      className="px-3 py-1 text-sm rounded-full bg-orange-500/10 text-orange-400"
+                      className="px-3 py-1 text-sm rounded-full bg-orange-500/10 text-orange-400 hover:bg-orange-500/20 transition-colors"
                     >
                       {tech}
                     </span>
@@ -149,51 +211,67 @@ const ProjectDetails = () => {
             </div>
             
             <div className="md:col-span-2">
-              <h1 className="text-3xl md:text-4xl font-bold mb-4 text-gradient">{project.title}</h1>
-              <p className="text-xl text-muted-foreground mb-8">{project.longDescription}</p>
+              <div className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/10 shadow-lg shadow-orange-500/5 mb-8">
+                <h2 className="text-2xl font-semibold mb-4">Overview</h2>
+                <p className="text-lg text-muted-foreground">{project.longDescription}</p>
+              </div>
               
               {project.goals && (
-                <div className="mb-8">
+                <div className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/10 shadow-lg shadow-orange-500/5 mb-8">
                   <h2 className="text-2xl font-semibold mb-4">Project Goals</h2>
-                  <ul className="list-disc pl-6 space-y-2">
+                  <ul className="space-y-3">
                     {project.goals.map((goal, index) => (
-                      <li key={index} className="text-muted-foreground">{goal}</li>
+                      <li key={index} className="flex items-start">
+                        <span className="inline-flex items-center justify-center rounded-full bg-orange-500/10 text-orange-500 h-6 w-6 mr-3 flex-shrink-0">
+                          {index + 1}
+                        </span>
+                        <span className="text-muted-foreground">{goal}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
               
               {project.challenges && (
-                <div className="mb-8">
+                <div className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/10 shadow-lg shadow-orange-500/5 mb-8">
                   <h2 className="text-2xl font-semibold mb-4">Challenges</h2>
-                  <ul className="list-disc pl-6 space-y-2">
+                  <ul className="space-y-3">
                     {project.challenges.map((challenge, index) => (
-                      <li key={index} className="text-muted-foreground">{challenge}</li>
+                      <li key={index} className="flex items-start">
+                        <span className="inline-flex items-center justify-center rounded-full bg-orange-500/10 text-orange-500 h-6 w-6 mr-3 flex-shrink-0">
+                          •
+                        </span>
+                        <span className="text-muted-foreground">{challenge}</span>
+                      </li>
                     ))}
                   </ul>
                 </div>
               )}
               
               {project.solution && (
-                <div className="mb-8">
+                <div className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/10 shadow-lg shadow-orange-500/5 mb-8">
                   <h2 className="text-2xl font-semibold mb-4">Our Solution</h2>
                   <p className="text-muted-foreground">{project.solution}</p>
                 </div>
               )}
               
               {project.results && (
-                <div className="mb-8">
+                <div className="bg-card/30 backdrop-blur-sm p-8 rounded-2xl border border-orange-500/10 shadow-lg shadow-orange-500/5 mb-8">
                   <h2 className="text-2xl font-semibold mb-4">Results</h2>
                   <p className="text-muted-foreground">{project.results}</p>
                 </div>
               )}
               
-              <Button 
-                className="mt-4 bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 hover:opacity-90 transition-opacity text-lg px-8 py-6 shadow-lg shadow-orange-500/20"
-                onClick={() => scrollToSection('contact')}
-              >
-                Start a Similar Project
-              </Button>
+              <div className="bg-gradient-to-r from-orange-500/20 to-amber-500/20 p-8 rounded-2xl border border-orange-500/20 shadow-lg">
+                <h2 className="text-2xl font-semibold mb-2">Ready to start a similar project?</h2>
+                <p className="text-muted-foreground mb-6">Let us help you turn your vision into reality. Our team of experts is ready to discuss your needs.</p>
+                <Button 
+                  className="bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 hover:opacity-90 transition-opacity text-lg px-8 py-6 shadow-lg shadow-orange-500/20 rounded-xl"
+                  onClick={() => scrollToSection('contact')}
+                >
+                  Start a Similar Project
+                </Button>
+              </div>
             </div>
           </div>
         </div>
